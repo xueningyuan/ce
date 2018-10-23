@@ -397,7 +397,7 @@
 										<i class="icon-double-angle-right"></i>商品列表</a>
 								</li>
 								<li class="home">
-									<a href="javascript:void(0)" name="Category_Manage.html" title="分类管理" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('goods_category')}}" title="分类管理" class="iframeurl">
 										<i class="icon-double-angle-right"></i>分类管理</a>
 								</li>
 
