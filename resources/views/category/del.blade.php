@@ -20,7 +20,7 @@
 		<![endif]-->
   <script src="js/jquery-1.9.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
-  <title>修改产品分类</title>
+  <title>添加产品分类</title>
 </head>
 
 <body>
@@ -30,10 +30,10 @@
       <div class="Operate_btn">
       <a href="{{route('category_add')}}" class="btn  btn-warning">
           <i class="icon-edit align-top bigger-125"></i>新增类型</a>
-        <a href="{{route('category_del')}}" class="btn  btn-danger">
-          <i class="icon-trash   align-top bigger-125"></i>删除类型</a>
+        <a href="{{route('category_edit')}}" class="btn  btn-success">
+          <i class="icon-ok align-top bigger-125"></i>修改类型</a>
       </div>
-      <form action="{{route('category_doedit')}}" method="post" class="form form-horizontal" id="form-user-add">
+      <form action="{{route('category_dodel')}}" method="post" class="form form-horizontal" id="form-user-add">
       @csrf
       <div class="Operate_cont clearfix">
           <label class="form-label">
@@ -46,16 +46,9 @@
             </select>
           </div>
         </div>
-        <div class="Operate_cont clearfix">
-          <label class="form-label">
-            <span class="c-red">*</span>分类名称:</label>
-          <div class="formControls ">
-            <input type="text" class="input-text" value="" placeholder="" id="user-name" name="cat_name">
-          </div>
-        </div>
         <div class="">
           <div class="" style=" text-align:center">
-            <input class="btn btn-primary radius" type="submit" value="修改">
+            <input class="btn btn-primary radius" type="submit" value="删除">
           </div>
         </div>
       </form>

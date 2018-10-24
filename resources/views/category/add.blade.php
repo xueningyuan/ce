@@ -29,9 +29,9 @@
     <div class="type_content">
       <div class="Operate_btn">
         <a href="{{route('category_edit')}}" class="btn  btn-success">
-          <i class="icon-ok align-top bigger-125"></i>修改该类型</a>
-        <a href="javascript:ovid()" class="btn  btn-danger">
-          <i class="icon-trash   align-top bigger-125"></i>删除该类型</a>
+          <i class="icon-ok align-top bigger-125"></i>修改类型</a>
+        <a href="{{route('category_del')}}" class="btn  btn-danger">
+          <i class="icon-trash   align-top bigger-125"></i>删除类型</a>
       </div>
       <form action="{{route('category_doadd')}}" method="post" class="form form-horizontal" id="form-user-add">
       @csrf

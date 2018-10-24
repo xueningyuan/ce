@@ -7,16 +7,27 @@ use App\Model\Goods;
 
 class GoodController extends Controller
 {
-    public function index(){
-        $goods = Goods::leftJoin('goods_sku','goods_sku.goods_id','=','goods.id');
-        $goods =$goods->paginate(2); 
+    public function index(Request $req){
+        $goods = Goods::where('id','!=',null);
+        $num = Goods::count();
+        $select=[];
+        if($req->goods_name){
+            $goods->where('goods_name','like',"%$req->goods_name%");
+            $select['goods_name'] = $req->goods_name;
+        }      
+        if($req->created_at){
+            $goods->where('created_at','like',"$req->created_at%");
+            $select['created_at'] = $req->created_at;
+        }
+        $goods =$goods->paginate(10); 
         // echo "<pre>";
         // var_dump($goods);
-        $num = Goods::count();
+        
         // echo $num;
         return view('goods.index',[
             'goods'=>$goods,
-            'num'=>$num
+            'num'=>$num,
+            'select'=>$select
         ]);
     }
 
@@ -37,6 +48,18 @@ class GoodController extends Controller
             echo "ok";
         else
             echo "no";
+    }
+
+    public function goods_sku(){
+        $goods = Goods::leftJoin('goods_sku','goods_sku.goods_id','=','goods.id');
+        $goods =$goods->paginate(10); 
+        // echo "<pre>";
+        // var_dump($goods);
+        
+        // echo $num;
+        return view('goods.sku',[
+            'goods'=>$goods,
+        ]);
     }
 
     public function good_add(){

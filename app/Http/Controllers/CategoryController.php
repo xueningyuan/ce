@@ -70,4 +70,28 @@ class CategoryController extends Controller
                 ->update(['cat_name'=>$data['cat_name']]);
         return redirect()->route('category_edit');
     }
+
+
+    public function del(){
+        $data = Category::get();
+        foreach($data as $k => $v){
+           if(substr_count($v['path'],'-')==3){
+                $v['cat_name'] = "---3---".$v['cat_name'];
+           }else if(substr_count($v['path'],'-')==2){
+                $v['cat_name'] = "-2-".$v['cat_name'];
+           }
+        }
+        return view('category.del',[
+            'data'=>$data
+        ]);
+    }
+
+    public function dodel(Request $req){
+        echo "<pre>";
+        $data = $req->all();
+        // var_dump($data);
+        $a = Category::where('id',$data['id'])
+                ->delete();
+        return redirect()->route('category_del');
+    }
 }
