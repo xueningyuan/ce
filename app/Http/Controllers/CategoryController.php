@@ -88,10 +88,10 @@ class CategoryController extends Controller
 
     public function dodel(Request $req){
         echo "<pre>";
-        $data = $req->all();
-        // var_dump($data);
-        $a = Category::where('id',$data['id'])
+        Category::where('id',$req->id)
                 ->delete();
+        Category::where('path','like',"%$req->id%")
+                ->delete();        
         return redirect()->route('category_del');
     }
 }

@@ -40,7 +40,7 @@
             <br><br>
             <div class="border clearfix">
                 <span class="l_f">
-                    <a href="{{route('goods_add')}}" title="添加商品" class="btn btn-warning Order_form">
+                    <a href="{{route('sku_add',['id'=>$id])}}" title="添加商品" class="btn btn-warning Order_form">
                         <i class="icon-plus"></i>添加sku</a>
 
                 </span>
@@ -51,10 +51,10 @@
                         <thead>
                             <tr>
                                 <th width="80px">产品编号</th>
+                                <th width="80px">sku编号</th>
                                 <th width="100px">产品名称</th>
                                 <th width="100px">现价</th>
                                 <th width="100px">库存</th>
-                                <th width="100px">加入时间</th>
                                 <th width="100px">操作</th>
                             </tr>
                         </thead>
@@ -62,13 +62,13 @@
                             @foreach($goods as $v)
                             <tr>
                                 
-                                <td width="80px">{{$v->id}}</td>
-                                <td width="100px">
-                                    {{$v->goods_name}}
+                                <td >{{$v->id}}</td>
+                                <td >{{$v->sku_name}}</td>
+                                <td >
+                                    {{$v->attr_value}}
                                 </td>
-                                <td width="100px">{{$v->price}}</td>
-                                <td width="100px">{{$v->stock}}</td>
-                                <td width="100px">{{$v->created_at}}</td>
+                                <td >{{$v->price}}</td>
+                                <td >{{$v->stock}}</td>
 
                                 <td class="td-manage">
                                     <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;" class="btn btn-xs btn-info">

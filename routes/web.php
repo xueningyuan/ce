@@ -33,6 +33,16 @@ Route::get('/goods_sku/{id}','GoodController@goods_sku')->name('goods_sku');
 Route::get('/sale_y','GoodController@sale_y')->name('goods_sale_y');
 Route::get('/sale_n','GoodController@sale_n')->name('goods_sale_n');
 Route::get('/good_add','GoodController@good_add')->name('goods_add');
+Route::post('/good_add','GoodController@good_doadd')->name('goods_doadd');
+Route::get('/ajax_get_cat','GoodController@ajax_get_cat')->name('ajax_get_cat');
+Route::get('/goods_edit/{id}','GoodController@goods_edit')->name('goods_edit');
+Route::post('/goods_edit/{id}','GoodController@goods_doedit')->name('goods_doedit');
+Route::get('/goods_del','GoodController@goods_del')->name('goods_del');
+Route::get('/sku_add/{id}','GoodController@sku_add')->name('sku_add');
+Route::post('/sku_doadd/{id}','GoodController@sku_doadd')->name('sku_doadd');
+
+
+
 // 分类
 Route::get('/category','CategoryController@index')->name('goods_category');
 Route::get('/category_add','CategoryController@add')->name('category_add');

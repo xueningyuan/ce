@@ -88,7 +88,7 @@
                                 <td width="100px">
                                     <a href="{{route('goods_sku',['id'=>$v->id])}}">{{$v->goods_name}}</a>
                                 </td>
-                                <td width="100px"><img src="{{$v->logo}}" style="width: 100px;height: 100px;" alt=""></td>
+                                <td width="100px"><img src="{{Storage::url($v->logo)}}" style="width: 100px;height: 100px;" alt=""></td>
                                 <td width="100px">{{$v->description}}</td>
                                 <td width="100px">{{$v->created_at}}</td>
                                 <td class="td-status">
@@ -108,10 +108,10 @@
                                     <i class="icon-ok bigger-120"></i>
                                 </a>
                                 @endif
-                                    <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;" class="btn btn-xs btn-info">
+                                    <a title="编辑" onclick="member_edit('编辑','{{route('goods_edit',['id'=>$v->id])}}','','510')" href="javascript:;" class="btn btn-xs btn-info">
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
-                                    <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="btn btn-xs btn-warning">
+                                    <a title="删除" href="javascript:;" onclick="member_del(this,'{{$v->id}}')" class="btn btn-xs btn-warning">
                                         <i class="icon-trash  bigger-120"></i>
                                     </a>
                                 </td>
@@ -298,13 +298,23 @@
         });
     }
     /*产品-编辑*/
-    function member_edit(title, url, id, w, h) {
+    function member_edit(title, url, w, h) {
         layer_show(title, url, w, h);
     }
 
     /*产品-删除*/
     function member_del(obj, id) {
+        var url = "{{route('goods_del')}}";
         layer.confirm('确认要删除吗？', function (index) {
+            $.ajax({
+            url:url,
+            method: "GET",
+            data:{id:id},
+            dataType: "json",
+            success: function success(data) {
+
+            }
+        });
             $(obj).parents("tr").remove();
             layer.msg('已删除!', { icon: 1, time: 1000 });
         });
