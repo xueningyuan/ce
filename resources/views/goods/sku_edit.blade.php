@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="main-div">
-        <form action="{{route('sku_doadd',['id'=>$goods->id])}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('sku_doedit',['id'=>$goods->id,'skuid'=>$sku->id])}}" method="post" enctype="multipart/form-data">
             @csrf
             <h3>基本信息</h3>
             <table width="100%">
@@ -46,11 +46,15 @@
                         <td class="label">SKU名称:</td>
                         <td>
                             @for($i=0;$i<$count;$i++)
-                            <select name="sku[0][]" id="" style="vertical-align:bottom;">
+                            <select name="sku[]" id="" style="vertical-align:bottom;">
                                 @foreach($attr as $k=>$v)
-                                @if($v->attr_name == $attr[$i]->attr_name)
-                                <option value="{{$v->id}}-{{$v->attr_value}}">{{$v->attr_value}}</option>
-                                @endif
+                                    @if($v->attr_name == $attr[$i]->attr_name)
+                                    @if($v->id == $data[$i])
+                                        <option selected value="{{$v->id}}-{{$v->attr_value}}">{{$v->attr_value}}</option>
+                                    @else
+                                        <option value="{{$v->id}}-{{$v->attr_value}}">{{$v->attr_value}}</option>
+                                    @endif
+                                    @endif
                                 @endforeach
                             </select>
                             @endfor
@@ -59,14 +63,14 @@
                     <tr>
                         <td class="label">库存量:</td>
                         <td>
-                            <input type='text' size="80" name='stock[]'>
+                            <input type='text' size="80" name='stock[]' value="{{$sku->stock}}">
                             <font color="red">*</font>
                         </td>
                     </tr>
                     <tr>
                         <td class="label">价格:</td>
                         <td>
-                            ￥ <input type='text' size="10" name='price[]'> 元
+                            ￥ <input type='text' size="10" name='price[]' value="{{$sku->price}}"> 元
                             <font color="red">*</font>
                         </td>
                     </tr>
@@ -75,25 +79,30 @@
             </div>
 
             <h3>商品图片 <input id="btn-image" type="button" value="添加一个图片"></h3>
-            <div id="image-container">
-                <table width="100%">
-                    <tr>
-                        <td class="label"></td>
-                        <td>
-                            <input class="preview" type='file' name='image[]'>
-                            <font color="red">*</font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label"></td>
-                        <td>
-                            <input onclick="del_attr(this)" type="button" value="删除">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-
+            <input type="hidden" name="del_image">
+                <div id="image-container">
+                        @foreach($image as $v)
+                        <table width="100%">
+                            <tr>
+                                <td class="label"></td>
+                                <td>
+                                    <div class="img_preview">
+                                        <img src="{{Storage::url($v->path)}}" width="120" height="120" alt="">
+                                    </div>
+                                    <input class="preview" type='file' name='image[]'>
+                                    <font color="red">*</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label"></td>
+                                <td>
+                                    <input image_id="{{$v->id}}" onclick="del_attr(this)" type="button" value="删除">
+                                </td>
+                            </tr>
+                        </table>
+              @endforeach          
+                    </div>
+            
             <div class="button-div">
                 <input type="submit" value=" 确定 " />
                 <input type="reset" value=" 重置 " />
@@ -109,12 +118,28 @@ function del_attr(o)
 {
     if(confirm("确定要删除吗？"))
     {
+        // 从按钮上获取 image_id 这个属性
+        var imageId = $(o).attr("image_id")
+        // 如果这个按钮上有这个属性，那么就把这个ID，放到 name=del_image 的框里面
+        if(imageId)
+        {
+            
+            // 先取出框里现有的id
+            var oldId = $("input[name=del_image]").val()
+            // 把这个ID追回到框里用，隔开
+            if(oldId == "")
+                $("input[name=del_image]").val(imageId)
+            else
+                $("input[name=del_image]").val(oldId +","+imageId)
+        }
+
         var table = $(o).parent().parent().parent().parent()
         table.prev('hr').remove()
         table.remove()
     }
     
 }
+
 
 var imageStr = `<hr><table width="100%"><tbody>
                     <tr>

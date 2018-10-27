@@ -12,14 +12,14 @@ class Goods_image extends Model
     public $timestamps=false;    
     protected $fillable =['goods_id','path','s','l','m'];
 
-    public function upimage($req,$id){
+    public function upimage($req,$id,$good_id){
         echo "<pre>";
         $user = new Goods_image;        
         // exit;
         // dd($req->all());
         foreach($req->image as $k => $v){
             // dd($k,$v);
-                    // $user = new User;
+            // $user = new User;
             if($req->has('image')&& $req->image[$k]->isValid()){
                 //当前图片上传的位置
                $oldimage = $req->image[$k]->path();
@@ -54,7 +54,8 @@ class Goods_image extends Model
                 's'=>$bgname,
                 'l'=>$mdname,
                 'm'=>$smname,
-                'sku_id'=>$id
+                'sku_id'=>$id,
+                'goods_id'=>$good_id,
             ]);
         }
 

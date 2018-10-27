@@ -40,6 +40,9 @@ Route::post('/goods_edit/{id}','GoodController@goods_doedit')->name('goods_doedi
 Route::get('/goods_del','GoodController@goods_del')->name('goods_del');
 Route::get('/sku_add/{id}','GoodController@sku_add')->name('sku_add');
 Route::post('/sku_doadd/{id}','GoodController@sku_doadd')->name('sku_doadd');
+Route::get('/sku_edit/{id}/{skuid}','GoodController@sku_edit')->name('sku_edit');
+Route::post('/sku_doedit/{id}/{skuid}','GoodController@sku_doedit')->name('sku_doedit');
+Route::get('/sku_del','GoodController@sku_del')->name('sku_del');
 
 
 

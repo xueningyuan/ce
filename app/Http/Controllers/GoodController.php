@@ -69,7 +69,7 @@ class GoodController extends Controller
     }
 
     public function sku_add($id){
-        echo "<pre>";
+        // echo "<pre>";
         $goods = Goods::find($id);
         $attr = Goods_attribute::where('goods_id',$id)->get();
         $attrs = Goods_attribute::select('attr_name')->where('goods_id','=',$id)->groupBy('attr_name')->get();
@@ -82,6 +82,27 @@ class GoodController extends Controller
             'count'=>$count
         ]);
     }
+    public function sku_edit($id,$skuid){
+        // echo "<pre>";
+        $goods = Goods::find($id);
+        $attr = Goods_attribute::where('goods_id',$id)->get();
+        $attrs = Goods_attribute::select('attr_name')->where('goods_id','=',$id)->groupBy('attr_name')->get();
+        $count = count($attrs);
+        // echo $attr[2]['attr_name'];
+        // var_dump($attr);
+        $sku = Goods_sku::find($skuid);
+        $data = explode('-',$sku->sku_name);
+        $image = Goods_image::where('sku_id',$skuid)->get();
+        // var_dump($image);
+        return view('goods.sku_edit',[
+            'goods'=>$goods,
+            'attr'=>$attr,
+            'count'=>$count,
+            'data'=>$data,
+            'sku'=>$sku,
+            'image'=>$image,
+        ]);
+    }
 
     public function sku_doadd(Request $req,$id){
         echo "<pre>";
@@ -90,12 +111,13 @@ class GoodController extends Controller
             $a[$i] =  explode('-',$req->sku[$i]);
             // var_dump($a[$i]); 
         }
-        for($i=0;$i<count($a)-1;$i++){
-            $a[$i][$i] = $a[$i][$i]."-".$a[$i+1][$i];
-            $a[$i][$i+1] = $a[$i][$i+1]."-".$a[$i+1][$i+1];
+        $tem = [];
+        for($i=0;$i<count($a);$i++){
+            $tem[0][] = $a[$i][0];
+            $tem[1][] = $a[$i][1];
         }
-        $attr_value =$a[0][1];
-        $sku_name   =$a[0][0];
+        $sku_name = implode('-',$tem[0]);
+        $attr_value = implode('-',$tem[1]);
 
         $skuid = Goods_sku::insertGetId([
             'goods_id' => $id,
@@ -112,6 +134,65 @@ class GoodController extends Controller
         
         return redirect()->route('goods_sku',['id'=>$id]);
     }
+    public function sku_doedit(Request $req,$id,$skuid){
+        echo "<pre>";
+        $sku = new Goods_sku;
+        for($i=0;$i<count($req->sku);$i++){
+            $a[$i] =  explode('-',$req->sku[$i]);
+            // var_dump($a[$i]); 
+        }
+        $tem = [];
+        for($i=0;$i<count($a);$i++){
+            $tem[0][] = $a[$i][0];
+            $tem[1][] = $a[$i][1];
+        }
+        $sku_name = implode('-',$tem[0]);
+        $attr_value = implode('-',$tem[1]);
+
+        Goods_sku::where('id',$skuid)->update([
+            'attr_value' => $attr_value,
+            'sku_name' => $sku_name,
+            'stock' => $req->stock[0],
+            'price' => $req->price[0],
+        ]);
+            
+        $image = new Goods_image;
+        if(isset($req->del_image)){
+            $del = explode(',',$req->del_image);
+            $img = $image->whereIn('id',$del)->get();
+            foreach($img as $v){
+                Storage::delete($v['path']);
+                Storage::delete($v['s']);
+                Storage::delete($v['l']);
+                Storage::delete($v['m']);
+            }
+            $image->whereIn('id',$del)->delete();
+            
+
+        }
+                // exit;
+        if(isset($req->image)){
+            $image->upimage($req,$skuid,$id);
+        }
+        
+        return redirect()->route('goods_sku',['id'=>$id]);
+    }
+
+    public function sku_del(Request $req){
+        $id = $req->id;
+        $sku = new Goods_sku;
+        $sku->where('id',$id)->delete();
+        $image = new Goods_image;
+        $img = $image->where('sku_id',$id)->get();
+        foreach($img as $v){
+            Storage::delete($v['path']);
+            Storage::delete($v['s']);
+            Storage::delete($v['l']);
+            Storage::delete($v['m']);
+        }
+        $image->where('sku_id',$id)->delete();
+    }
+
 
     public function good_add(){
         $data = Category::where('parent_id',0)
@@ -193,7 +274,18 @@ class GoodController extends Controller
         $goods = Goods::find($id);
         Storage::delete($goods->logo);
         Goods::where('id',$id)->delete();
-        
+
+        $sku = new Goods_sku;
+        $sku->where('goods_id',$id)->delete();
+        $image = new Goods_image;
+        $img = $image->where('goods_id',$id)->get();
+        foreach($img as $v){
+            Storage::delete($v['path']);
+            Storage::delete($v['s']);
+            Storage::delete($v['l']);
+            Storage::delete($v['m']);
+        }
+        $image->where('goods_id',$id)->delete();
     }
 
     public function ajax_get_cat(Request $req)
