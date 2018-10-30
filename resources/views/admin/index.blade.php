@@ -225,7 +225,7 @@
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand">
 					<small>
-						<img src="images/logo.png" width="470px">
+						<h1 style="text-align: center;line-height: 60px;font-family:STXingkai;margin-left: 20px;">品优购后台系统</h1>
 					</small>
 				</a>
 				<!-- /.brand -->
@@ -261,65 +261,7 @@
 							</li>
 						</ul>
 					</li>
-					<li class="purple">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="icon-bell-alt"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-							<li class="dropdown-header">
-								<i class="icon-warning-sign"></i>8条通知</li>
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">
-											<i class="btn btn-xs no-hover btn-pink icon-comments-alt"></i>
-											最新消息
-										</span>
-										<span class="pull-right badge badge-info">+12</span>
-									</div>
-								</a>
-							</li>
 
-							<li>
-								<a href="#">
-									<i class="btn btn-xs btn-primary icon-user"></i>
-									切换为编辑登录..
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">
-											<i class="btn btn-xs no-hover btn-success icon-shopping-cart"></i>
-											新订单
-										</span>
-										<span class="pull-right badge badge-success">+8</span>
-									</div>
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">
-											<i class="btn btn-xs no-hover btn-info icon-twitter"></i>
-											用户消息
-										</span>
-										<span class="pull-right badge badge-info">+11</span>
-									</div>
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									查看所有通知
-									<i class="icon-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
 
 
 				</ul>
@@ -428,27 +370,16 @@
 							</a>
 							<ul class="submenu">
 								<li class="home">
-									<a href="javascript:void(0)" name="transaction.html" title="交易信息" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('order_transaction')}}" title="交易信息" class="iframeurl">
 										<i class="icon-double-angle-right"></i>交易信息</a>
 								</li>
+
 								<li class="home">
-									<a href="javascript:void(0)" name="Order_Chart.html" title="交易订单（图）" class="iframeurl">
-										<i class="icon-double-angle-right"></i>交易订单(图)</a>
-								</li>
-								<li class="home">
-									<a href="javascript:void(0)" name="Orderform.html" title="订单管理" class="iframeurl">
-										<i class="icon-double-angle-right"></i>订单管理</a>
-								</li>
-								<li class="home">
-									<a href="javascript:void(0)" name="Amounts.html" title="交易金额" class="iframeurl">
-										<i class="icon-double-angle-right"></i>交易金额</a>
-								</li>
-								<li class="home">
-									<a href="javascript:void(0)" name="Order_handling.html" title="订单处理" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('Order_handling')}}" title="订单处理" class="iframeurl">
 										<i class="icon-double-angle-right"></i>订单处理</a>
 								</li>
 								<li class="home">
-									<a href="javascript:void(0)" name="Refund.html" title="退款管理" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('Order_refund')}}" title="退款管理" class="iframeurl">
 										<i class="icon-double-angle-right"></i>退款管理</a>
 								</li>
 							</ul>
@@ -482,17 +413,14 @@
 							</a>
 							<ul class="submenu">
 								<li class="home">
-									<a href="javascript:void(0)" name="user_list.html" title="会员列表" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('user')}}" title="会员列表" class="iframeurl">
 										<i class="icon-double-angle-right"></i>会员列表</a>
 								</li>
 								<li class="home">
-									<a href="javascript:void(0)" name="member-Grading.html" title="等级管理" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('grade')}}" title="等级管理" class="iframeurl">
 										<i class="icon-double-angle-right"></i>等级管理</a>
 								</li>
-								<li class="home">
-									<a href="javascript:void(0)" name="integration.html" title="会员记录管理" class="iframeurl">
-										<i class="icon-double-angle-right"></i>会员记录管理</a>
-								</li>
+
 
 							</ul>
 						</li>

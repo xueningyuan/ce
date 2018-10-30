@@ -55,3 +55,22 @@ Route::post('/category_add','CategoryController@doadd')->name('category_doadd');
 Route::post('/category_edit','CategoryController@doedit')->name('category_doedit');
 Route::post('/category_del','CategoryController@dodel')->name('category_dodel');
 
+// 订单
+Route::get('/order_transaction','OrderController@order_transaction')->name('order_transaction');
+Route::get('/Order_handling','OrderController@Order_handling')->name('Order_handling');
+Route::get('/Order_refund','OrderController@Order_refund')->name('Order_refund');
+Route::get('/Order_type','OrderController@Order_type')->name('Order_type');
+Route::get('/Order_detailed','OrderController@Order_detailed')->name('Order_detailed');
+
+// 用户
+Route::get('/user','UserController@user')->name('user');
+Route::get('/user_typr','UserController@user_typr')->name('user_typr');
+Route::get('/user_del','UserController@user_del')->name('user_del');
+// 等级
+Route::get('/grade','GradeController@grade')->name('grade');
+Route::get('/grade_add','GradeController@grade_add')->name('grade_add');
+Route::post('/grade_add','GradeController@grade_doadd')->name('grade_doadd');
+Route::get('/grade_edit/{id}','GradeController@grade_edit')->name('grade_edit');
+Route::post('/grade_doedit/{id}','GradeController@grade_doedit')->name('grade_doedit');
+Route::get('/grade_typr','GradeController@grade_typr')->name('grade_typr');
+Route::get('/grade_del','GradeController@grade_del')->name('grade_del');
