@@ -242,7 +242,7 @@
 								<em id="time"></em>
 							</span>
 							<span class="user-info">
-								<small>欢迎光临,</small>超级管理员</span>
+								<small>欢迎光临,</small>{{session('type')}}</span>
 							<i class="icon-caret-down"></i>
 						</a>
 						<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
@@ -508,8 +508,12 @@
 							<ul class="submenu">
 
 								<li class="home">
-									<a href="javascript:void(0)" name="admin_Competence.html" title="权限管理" class="iframeurl">
+									<a href="javascript:void(0)" name="{{route('admin_privilege')}}" title="权限管理" class="iframeurl">
 										<i class="icon-double-angle-right"></i>权限管理</a>
+								</li>
+								<li class="home">
+									<a href="javascript:void(0)" name="{{ route('admin_role') }}" title="角色列表" class="iframeurl">
+										<i class="icon-double-angle-right"></i>角色列表</a>
 								</li>
 								<li class="home">
 									<a href="javascript:void(0)" name="{{ route('administrator') }}" title="管理员列表" class="iframeurl">

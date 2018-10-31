@@ -35,7 +35,8 @@ class loginController extends Controller
              if(Hash::check($req->password,$user->password)){
                  session([
                      'id'=>$user->id,
-                     'admin_name'=>$user->admin_name
+                     'admin_name'=>$user->admin_name,
+                     'type'=>$user->type,
                  ]);
                  echo "ok";
                  return redirect()->route('admin_index');
