@@ -18,9 +18,18 @@ class system
     public function handle($request, Closure $next)
     {   
         if(!$request->session()->has("id")){
-            return back();
+            return redirect()->route('login');
         }
         if( session('type') == '超级管理员'){
+            $data['ip'] = $_SERVER["REMOTE_ADDR"];
+            $data['url'] = \Request::route()->getName();
+            $data['user_id'] = session('id');
+            \DB::table('pv')->insert([
+                'ip'=>$data['ip'],
+                'url'=>$data['url'],
+                'user_id'=>$data['user_id']
+            ]);
+            
             return $next($request);
         }
 
@@ -42,6 +51,14 @@ class system
         {
             die('无权访问！');
         }
+        $data['ip'] = $_SERVER["REMOTE_ADDR"];
+        $data['url'] = $pa;
+        $data['user_id'] = session('id');
+        \DB::table('pv')->insert([
+            'ip'=>$data['ip'],
+            'url'=>$data['url'],
+            'user_id'=>$data['user_id']
+        ]);
         
         return $next($request);
     }

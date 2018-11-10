@@ -126,7 +126,7 @@
 <script>
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
-        var url = "{{route('role_del')}}";
+    var url = "{{route('role_del')}}";
       $.ajax({
             url:url,
             method: "GET",

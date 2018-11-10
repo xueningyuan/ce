@@ -80,8 +80,10 @@ class AdminController extends Controller
     public function info(){
         $id = session('id');
         $user = Admin_users::find($id);
+        $pv = \DB::table('pv')->where('user_id',$id)->get();
         return view('admin.admin_info',[
-            'user'=>$user
+            'user'=>$user,
+            'pv'=>$pv
         ]);
     }
     public function doinfo(Request $reg){

@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\userrequest;
+use App\Http\Requests\LoginRequest;
 use App\Model\User;
+use Hash;
+use Illuminate\Support\Facades\Cache;
+use Flc\Dysms\Client;
+use Flc\Dysms\Request\SendSms;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -47,6 +54,60 @@ class UserController extends Controller
         User::where('id',$req->id)->delete();
         echo "ok";
     }
-    
+
+    public function register(){
+        return view('user.register');
+    }
+    public function sns(Request $req){
+        $code = rand(100000,999999);
+
+        $name = 'code-'.$req->phone;
+        Cache::put($name,$code,1);
+
+       Redis::lpush('sms_list',$req->phone.'-'.$code);
+    }
+    public function doregister(userrequest $req){
+        $name = 'code-'.$req->phone;
+        $code = Cache::get($name);
+        echo $code;
+        // exit;
+        if(!$code && $code != $req->mobile_code){
+            return back()->withErrors(['mobile_code'=>'验证码错误']);
+        }
+
+        $password = Hash::make($req->password);
+        $user = new User;
+        $user->name = $req->name;
+        $user->phone = $req->phone;
+        $user->password = $password;
+        $user->save();
+        return redirect()->route('user_login');
+
+    }
+    public function login(){
+        return view('user.login');
+    }
+    public function dologin(LoginRequest $req){
+        $req->phone;
+        $login = User::where('phone',$req->phone)->first();
+        // echo $req->password."<br>";
+        // echo Hash::make($req->password)."<br>";
+        // echo $login->password."<br>";
+        // exit;
+        if($login){
+            if(Hash::check($req->password,$login->password)){
+                session([
+                    'user_id'=>$login->id,
+                    'name'=>$login->name,
+                ]);
+                return redirect()->route('index');
+            }else{
+            return back()->withErrors('密码错误');                
+            }
+        }else{
+             //账号不存在
+             return back()->withErrors('账户不存在');
+        }
+    }
     
 }

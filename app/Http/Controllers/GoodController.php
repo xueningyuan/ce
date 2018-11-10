@@ -107,8 +107,10 @@ class GoodController extends Controller
     public function sku_doadd(Request $req,$id){
         echo "<pre>";
         $sku = new Goods_sku;
-        for($i=0;$i<count($req->sku);$i++){
-            $a[$i] =  explode('-',$req->sku[$i]);
+        // var_dump($req->sku);
+        for($i=0;$i<count($req->sku[0]);$i++){
+            // dd(count($req->sku[0]));
+            $a[$i] =  explode('-',$req->sku[0][$i]);
             // var_dump($a[$i]); 
         }
         $tem = [];
@@ -118,7 +120,7 @@ class GoodController extends Controller
         }
         $sku_name = implode('-',$tem[0]);
         $attr_value = implode('-',$tem[1]);
-
+        
         $skuid = Goods_sku::insertGetId([
             'goods_id' => $id,
             'attr_value' => $attr_value,
@@ -129,7 +131,7 @@ class GoodController extends Controller
             
         $image = new Goods_image;
         if(isset($req->image)){
-            $image->upimage($req,$skuid);
+            $image->upimage($req,$skuid,$id);
         }
         
         return redirect()->route('goods_sku',['id'=>$id]);
@@ -175,7 +177,7 @@ class GoodController extends Controller
             $image->upimage($req,$skuid,$id);
         }
         
-        return redirect()->route('goods_sku',['id'=>$id]);
+        return ;
     }
 
     public function sku_del(Request $req){

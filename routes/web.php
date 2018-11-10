@@ -90,13 +90,33 @@ Route::middleware(['system'])->group(function(){
     Route::get('/grade_typr','GradeController@grade_typr')->name('grade_typr');
     Route::get('/grade_del','GradeController@grade_del')->name('grade_del');
     
+    // 后台 管理
+    Route::get('/admin','AdminController@index')->name('admin_index');
+    Route::get('/home','AdminController@home')->name('admin_home');
 });
 
 // 登陆
 Route::get('/admin_login','loginController@login')->name('login');
 Route::get('/admin_captcha','loginController@captcha')->name('captcha');
 Route::post('/admin_login','loginController@dologin')->name('dologin');
-// 后台 管理
-Route::get('/admin','AdminController@index')->name('admin_index');
-Route::get('/home','AdminController@home')->name('admin_home');
+
+
+
+// 首页
+Route::get('/','IndexController@index')->name('index');
+
+// 前台登陆
+Route::get('/register','UserController@register')->name('register');
+Route::post('/register','UserController@doregister')->name('doregister');
+Route::get('/sns','UserController@sns')->name('sns');
+Route::get('/login','UserController@login')->name('user_login');
+Route::post('/login','UserController@dologin')->name('user_dologin');
+
+// 商品
+Route::get('/goods_content/{id}/{skuid}','ContentController@goods_content')->name('goods_content');
+// 购物车
+Route::get('/incart','ContentController@incart')->name('incart');
+Route::get('/cart','ContentController@cart')->name('cart');
+
+
 

@@ -31,93 +31,117 @@
       <div class="admin_modify_style" id="Personal">
         <div class="type_title">管理员信息 </div>
         <form action="{{ route('admin_user') }}" method="POST">
-            {{csrf_field()}}
-        <div class="xinxi">
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
-            <div class="col-sm-9">
-              <input type="text" name="name" id="website-title" value="{{$user->name}}" class="col-xs-7 text_info" disabled="disabled"> &nbsp;&nbsp;&nbsp;
-            </div>
+          {{csrf_field()}}
+          <div class="xinxi">
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
+              <div class="col-sm-9">
+                <input type="text" name="name" id="website-title" value="{{$user->name}}" class="col-xs-7 text_info" disabled="disabled"> &nbsp;&nbsp;&nbsp;
+              </div>
 
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">性别： </label>
-            <div class="col-sm-9">
-              <span class="sex">{{$user->sex}}</span>
-              <div class="add_sex">
-                <label>
-                  @if($user->sex == '保密')
-                  <input name="sex" type="radio" value="保密" class="ace" checked="checked">
-                  <span class="lbl">保密</span>
-                  @else
-                  <input name="sex" type="radio" value="保密" class="ace" >
-                  <span class="lbl">保密</span>
-                  @endif
-                </label>&nbsp;&nbsp;
-                <label>
-                  @if($user->sex == '男')
-                  <input name="sex" type="radio" value="男" class="ace" checked="checked">
-                  <span class="lbl">男</span>
-                  @else
-                  <input name="sex" type="radio" value="男" class="ace">
-                  <span class="lbl">男</span>
-                  @endif
-                </label>&nbsp;&nbsp;
-                <label>
-                  @if($user->sex == '女')
-                  <input name="sex" type="radio" value="女" class="ace" checked="checked">
-                  <span class="lbl">女</span>
-                  @else
-                  <input name="sex" type="radio" value="女" class="ace">
-                  <span class="lbl">女</span>
-                  @endif
-                </label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">性别： </label>
+              <div class="col-sm-9">
+                <span class="sex">{{$user->sex}}</span>
+                <div class="add_sex">
+                  <label>
+                    @if($user->sex == '保密')
+                    <input name="sex" type="radio" value="保密" class="ace" checked="checked">
+                    <span class="lbl">保密</span>
+                    @else
+                    <input name="sex" type="radio" value="保密" class="ace">
+                    <span class="lbl">保密</span>
+                    @endif
+                  </label>&nbsp;&nbsp;
+                  <label>
+                    @if($user->sex == '男')
+                    <input name="sex" type="radio" value="男" class="ace" checked="checked">
+                    <span class="lbl">男</span>
+                    @else
+                    <input name="sex" type="radio" value="男" class="ace">
+                    <span class="lbl">男</span>
+                    @endif
+                  </label>&nbsp;&nbsp;
+                  <label>
+                    @if($user->sex == '女')
+                    <input name="sex" type="radio" value="女" class="ace" checked="checked">
+                    <span class="lbl">女</span>
+                    @else
+                    <input name="sex" type="radio" value="女" class="ace">
+                    <span class="lbl">女</span>
+                    @endif
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">年龄： </label>
-            <div class="col-sm-9">
-              <input type="text" name="old" id="website-title" value="{{$user->old}}" class="col-xs-7 text_info" disabled="disabled">
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">年龄： </label>
+              <div class="col-sm-9">
+                <input type="text" name="old" id="website-title" value="{{$user->old}}" class="col-xs-7 text_info" disabled="disabled">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">移动电话： </label>
+              <div class="col-sm-9">
+                <input type="text" name="phone" id="website-title" value="{{$user->phone}}" class="col-xs-7 text_info" disabled="disabled">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">电子邮箱： </label>
+              <div class="col-sm-9">
+                <input type="text" name="email" id="website-title" value="{{$user->email}}" class="col-xs-7 text_info" disabled="disabled">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ： </label>
+              <div class="col-sm-9">
+                <input type="text" name="qq" id="website-title" value="{{$user->qq}}" class="col-xs-7 text_info" disabled="disabled"> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">权限： </label>
+              <div class="col-sm-9">
+                <span>{{$user->type}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
+              <div class="col-sm-9">
+                <span>{{$user->created_at}}</span>
+              </div>
+            </div>
+            <div class="Button_operation clearfix">
+              <button onclick="modify();" class="btn btn-danger radius" type="button">修改信息</button>
+              <button class="btn btn-success radius" type="submit">保存修改</button>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">移动电话： </label>
-            <div class="col-sm-9">
-              <input type="text" name="phone" id="website-title" value="{{$user->phone}}" class="col-xs-7 text_info" disabled="disabled">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">电子邮箱： </label>
-            <div class="col-sm-9">
-              <input type="text" name="email" id="website-title" value="{{$user->email}}" class="col-xs-7 text_info" disabled="disabled">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ： </label>
-            <div class="col-sm-9">
-              <input type="text" name="qq" id="website-title" value="{{$user->qq}}" class="col-xs-7 text_info" disabled="disabled"> </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">权限： </label>
-            <div class="col-sm-9">
-              <span>{{$user->type}}</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
-            <div class="col-sm-9">
-              <span>{{$user->created_at}}</span>
-            </div>
-          </div>
-          <div class="Button_operation clearfix">
-            <button onclick="modify();" class="btn btn-danger radius" type="button">修改信息</button>
-            <button  class="btn btn-success radius" type="submit">保存修改</button>
-          </div>
-        </div>
-      </form>
+        </form>
       </div>
-
+      <div class="recording_style">
+        <div class="type_title">管理员登陆记录 </div>
+        <div class="recording_list">
+          <table class="table table-border table-bordered table-bg table-hover table-sort" id="sample-table">
+            <thead>
+              <tr class="text-c">
+                <th width="80">ID</th>
+                <th width="100">url</th>
+                <th width="120">客户端IP</th>
+                <th width="150">时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($pv as $v)
+              <tr>
+                <td>{{$v->id}}</td>
+                <td>{{$v->url}}</td>
+                <td>{{$v->ip}}</td>
+                <td>{{$v->created_at}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     </div>
   </div>

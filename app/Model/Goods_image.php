@@ -32,15 +32,15 @@ class Goods_image extends Model
 
                 // 定义缩略图并保存
                $bgname = str_replace('good_image/'.$date.'/','good_image/'.$date.'/bg_',$oriImg); 
-               $img->resize(240,240);
+               $img->resize(400,400);
                $img->save('./uploads/'.$bgname);
 
                $mdname = str_replace('good_image/'.$date.'/','good_image/'.$date.'/md_',$oriImg);
-               $img->resize(80,80);
+               $img->resize(400,400);
                $img->save('./uploads/'.$mdname);
 
                $smname = str_replace('good_image/'.$date.'/','good_image/'.$date.'/sm_',$oriImg);
-               $img->resize(35,35);
+               $img->resize(56,56);
                $img->save('./uploads/'.$smname);
             
 
