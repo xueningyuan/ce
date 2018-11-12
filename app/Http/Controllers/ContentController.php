@@ -29,6 +29,6 @@ class ContentController extends Controller
         return view('content.cart');
     }
     public function incart(){
-        return view('content.cart');
+        
     }
 }
